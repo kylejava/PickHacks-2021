@@ -1,5 +1,6 @@
 import pygame
 import random
+import threading
 import time
 from pokemon import *
 from player import *
@@ -8,42 +9,55 @@ pygame.init()
 
 
 #Specific Pokemon Variables
-pokemon_caught = []
+pokemon_caught = 0
 pokemon_on_screen = 0
 
 
 #Game & character variabls
+score = 0
 win = pygame.display.set_mode((500,500))
 pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
 bg = pygame.image.load('bg.png')
 
 def getPokemon():
-    if(pokemon_on_screen < 3 and len(pokemon_list) > 0):
-        clock.tick(5)
+
+    if(pokemon_on_screen < 1 and len(pokemon_list) > 0):
     #    pokemon_on_screen = pokemon_on_screen + 1
         pokemon_num = random.randint(0, len(pokemon_list)-1)
         x = random.randint(90 , 360)
         y =random.randint(90, 360)
-
+        print(pokemon_num)
         sprite = pokemon_list[pokemon_num]
         new_poke = pokemon(x, y , sprite)
         pokemon_list.pop(pokemon_num)
+        return new_poke
+
 
 def redrawGameWindow():
     global walkCount
     win.blit(bg , (0 ,0))
-    getPokemon()
+    poke.draw(win)
     red.draw(win)
     pygame.display.update()
 
+
 red = player(255,255, 64, 64)
+poke = getPokemon()
 run = True
-while (run or len(pokemon_caught) == 151):
+while (run):
     clock.tick(27)
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):
                 run = False
+
+
+    if((poke.x -32 < red.x and red.x < poke.x + 32) or (poke.x + 32 < red.x and red.x < poke.x-32)):
+        if((poke.y -32 < red.y and red.y < poke.y + 32) or (poke.y + 32 < red.y and red.y < poke.y-32)):
+            score += 10
+            pokemon_caught += 1
+            poke.update()
+
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
@@ -76,7 +90,11 @@ while (run or len(pokemon_caught) == 151):
                 red.standing = False
     else:
         red.standing = True
-    pokemon_on_screen += 1
-    redrawGameWindow()
 
+    redrawGameWindow()
+    pokemon_on_screen += 1
+
+
+print("Score: " + str(score))
+print("Pokemon Caught: " + str(pokemon_caught))
 pygame.quit()

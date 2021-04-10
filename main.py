@@ -10,7 +10,7 @@ walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.im
 walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png')]
 walkUp = [pygame.image.load('U1.png'), pygame.image.load('U2.png'), pygame.image.load('U3.png'), pygame.image.load('U4.png')]
 walkDown = [pygame.image.load('D1.png'), pygame.image.load('D2.png'), pygame.image.load('D3.png'), pygame.image.load('D4.png')]
-
+bg = pygame.image.load('bg.png')
 class player(object):
     def __init__(self, x ,y , width, height):
         self.x = x
@@ -54,11 +54,13 @@ class player(object):
 
 def redrawGameWindow():
     global walkCount
+    win.blit(bg , (0 ,0))
     red.draw(win)
+
     pygame.display.update()
 
 
-red = player(300, 410, 64, 64)
+red = player(255,255, 64, 64)
 
 run = True
 while run:
@@ -69,19 +71,19 @@ while run:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        if(red.x > 0):
+        if(red.x > 30):
             red.x -= red.vel
             red.left = True
             red.right = False
             red.standing = False
     elif keys[pygame.K_RIGHT]:
-        if(red.x < (500 - 64)):
+        if(red.x < (500 - 90)):
             red.x += red.vel
             red.right = True
             red.left = False
             red.standing = False
     elif  keys[pygame.K_UP]:
-            if(red.y > 0):
+            if(red.y > 30):
                 red.y -= red.vel
                 red.up = True
                 red.right = False
@@ -89,7 +91,7 @@ while run:
                 red.down = False
                 red.standing = False
     elif  keys[pygame.K_DOWN]:
-            if(red.y < (500 - 60)):
+            if(red.y < (500 - 150)):
                 red.y += red.vel
                 red.up = False
                 red.right = False
@@ -98,6 +100,7 @@ while run:
                 red.standing = False
     else:
         red.standing = True
+
     redrawGameWindow()
 
 pygame.quit()

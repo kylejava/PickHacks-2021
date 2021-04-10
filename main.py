@@ -15,10 +15,12 @@ pokemon_on_screen = 0
 
 #Game & character variabls
 score = 0
+run = False
 win = pygame.display.set_mode((500,500))
 pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
 bg = pygame.image.load('bg.png')
+image = pygame.image.load('main_character/D1.png')
 
 def getPokemon():
 
@@ -37,14 +39,26 @@ def getPokemon():
 def redrawGameWindow():
     global walkCount
     win.blit(bg , (0 ,0))
-    poke.draw(win)
     red.draw(win)
+    poke.draw(win)
     pygame.display.update()
 
 
-red = player(255,255, 64, 64)
+while(run == False):
+    for event in pygame.event.get():
+            if(event.type == pygame.QUIT):
+                run = False
+    win.blit(bg , (0 ,0))
+    win.blit(image, (220, 200))
+    keys = pygame.key.get_pressed()
+    pygame.display.update()
+    if keys[pygame.K_RETURN]:
+        run = True
+
+
+red = player(random.randint(90 , 360),random.randint(90 , 360), 64, 64)
+win.blit(image, (red.x, red.y))
 poke = getPokemon()
-run = True
 while (run):
     clock.tick(27)
     for event in pygame.event.get():

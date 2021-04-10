@@ -6,10 +6,10 @@ pygame.init()
 win = pygame.display.set_mode((500,500))
 pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
-walkRight = [pygame.image.load('R1.png'), pygame.image.load('R2.png'), pygame.image.load('R3.png'), pygame.image.load('R4.png')]
-walkLeft = [pygame.image.load('L1.png'), pygame.image.load('L2.png'), pygame.image.load('L3.png'), pygame.image.load('L4.png')]
-walkUp = [pygame.image.load('U1.png'), pygame.image.load('U2.png'), pygame.image.load('U3.png'), pygame.image.load('U4.png')]
-walkDown = [pygame.image.load('D1.png'), pygame.image.load('D2.png'), pygame.image.load('D3.png'), pygame.image.load('D4.png')]
+walkRight = [pygame.image.load('main_character/R1.png'), pygame.image.load('main_character/R2.png'), pygame.image.load('main_character/R3.png'), pygame.image.load('main_character/R4.png')]
+walkLeft = [pygame.image.load('main_character/L1.png'), pygame.image.load('main_character/L2.png'), pygame.image.load('main_character/L3.png'), pygame.image.load('main_character/L4.png')]
+walkUp = [pygame.image.load('main_character/U1.png'), pygame.image.load('main_character/U2.png'), pygame.image.load('main_character/U3.png'), pygame.image.load('main_character/U4.png')]
+walkDown = [pygame.image.load('main_character/D1.png'), pygame.image.load('main_character/D2.png'), pygame.image.load('main_character/D3.png'), pygame.image.load('main_character/D4.png')]
 bg = pygame.image.load('bg.png')
 class player(object):
     def __init__(self, x ,y , width, height):

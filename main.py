@@ -15,13 +15,14 @@ pokemon_on_screen = 0
 
 #Game & character variabls
 score = 0
+seconds = 60
+font = pygame.font.SysFont("comicsans", 30, True)
 run = False
 win = pygame.display.set_mode((500,500))
 pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
 bg = pygame.image.load('bg.png')
 image = pygame.image.load('main_character/D1.png')
-
 def getPokemon():
 
     if(pokemon_on_screen < 1 and len(pokemon_list) > 0):
@@ -29,17 +30,23 @@ def getPokemon():
         pokemon_num = random.randint(0, len(pokemon_list)-1)
         x = random.randint(90 , 360)
         y =random.randint(90, 360)
-        print(pokemon_num)
         sprite = pokemon_list[pokemon_num]
         new_poke = pokemon(x, y , sprite)
         pokemon_list.pop(pokemon_num)
         return new_poke
 
+def updateTimer():
+
+    text = font.render("Time: " + str(seconds), 1, (255,255,255))
+    win.blit(text, (100,00))
 
 def redrawGameWindow():
     global walkCount
     win.blit(bg , (0 ,0))
+    updateTimer()
     red.draw(win)
+    text = font.render("Score: " + str(score), 1, (255,255,255))
+    win.blit(text, (0, 0))
     poke.draw(win)
     pygame.display.update()
 
@@ -58,8 +65,9 @@ while(run == False):
 
 red = player(random.randint(90 , 360),random.randint(90 , 360), 64, 64)
 win.blit(image, (red.x, red.y))
+pygame.display.update()
 poke = getPokemon()
-while (run):
+while (run and pokemon_caught != 5):
     clock.tick(27)
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):
@@ -106,9 +114,10 @@ while (run):
         red.standing = True
 
     redrawGameWindow()
+    seconds = seconds - 1
     pokemon_on_screen += 1
 
-
+print("Congratulations!")
 print("Score: " + str(score))
 print("Pokemon Caught: " + str(pokemon_caught))
 pygame.quit()

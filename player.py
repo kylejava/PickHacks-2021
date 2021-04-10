@@ -13,10 +13,10 @@ class player(object):
         self.left = False
         self.right = False
         self.up = False
-        self.down = False
+        self.down = True
         self.walkCount = 0
         self.standing = True
-        
+
 
     def draw(self, win):
         if self.walkCount  + 1 >= 27:

@@ -23,9 +23,10 @@ pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
 bg = pygame.image.load('bg.png')
 image = pygame.image.load('main_character/D1.png')
+
 def getPokemon():
 
-    if(pokemon_on_screen < 1 and len(pokemon_list) > 0):
+    if(pokemon_on_screen < 3 and len(pokemon_list) > 0):
     #    pokemon_on_screen = pokemon_on_screen + 1
         pokemon_num = random.randint(0, len(pokemon_list)-1)
         x = random.randint(90 , 360)
@@ -37,8 +38,8 @@ def getPokemon():
 
 def updateTimer():
 
-    text = font.render("Time: " + str(seconds), 1, (255,255,255))
-    win.blit(text, (100,00))
+    text = font.render("Time: " + str(seconds//50 * -1), 1, (255,255,255))
+    win.blit(text, (350,00))
 
 def redrawGameWindow():
     global walkCount
@@ -48,6 +49,8 @@ def redrawGameWindow():
     text = font.render("Score: " + str(score), 1, (255,255,255))
     win.blit(text, (0, 0))
     poke.draw(win)
+    poke2.draw(win)
+    poke3.draw(win)
     pygame.display.update()
 
 
@@ -65,8 +68,10 @@ while(run == False):
 
 red = player(random.randint(90 , 360),random.randint(90 , 360), 64, 64)
 win.blit(image, (red.x, red.y))
-pygame.display.update()
 poke = getPokemon()
+poke2 = getPokemon()
+poke3 = getPokemon()
+pygame.display.update()
 while (run ):
     clock.tick(27)
     for event in pygame.event.get():
@@ -78,7 +83,22 @@ while (run ):
         if((poke.y -32 < red.y and red.y < poke.y + 32) or (poke.y + 32 < red.y and red.y < poke.y-32)):
             score += 10
             pokemon_caught += 1
+            pokemon_on_screen -= 1
             poke.update()
+
+    if((poke2.x -32 < red.x and red.x < poke2.x + 32) or (poke2.x + 32 < red.x and red.x < poke2.x-32)):
+        if((poke2.y -32 < red.y and red.y < poke2.y + 32) or (poke2.y + 32 < red.y and red.y < poke2.y-32)):
+            score += 10
+            pokemon_caught += 1
+            pokemon_on_screen -= 1
+            poke2.update()
+
+    if((poke3.x -32 < red.x and red.x < poke3.x + 32) or (poke3.x + 32 < red.x and red.x < poke3.x-32)):
+        if((poke3.y -32 < red.y and red.y < poke3.y + 32) or (poke3.y + 32 < red.y and red.y < poke3.y-32)):
+            score += 10
+            pokemon_caught += 1
+            pokemon_on_screen -= 1
+            poke3.update()
 
 
     keys = pygame.key.get_pressed()

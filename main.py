@@ -67,7 +67,7 @@ red = player(random.randint(90 , 360),random.randint(90 , 360), 64, 64)
 win.blit(image, (red.x, red.y))
 pygame.display.update()
 poke = getPokemon()
-while (run and pokemon_caught != 5):
+while (run ):
     clock.tick(27)
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):

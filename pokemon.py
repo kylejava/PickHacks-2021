@@ -9,6 +9,7 @@ class pokemon(object):
         self.height = 64
         sprite = pygame.image.load(pokemon_sprite)
         self.sprite = pygame.transform.scale(sprite, (64,64))
+        self.pokemon_caught = 0
 
     def draw(self, win):
         win.blit(self.sprite,(self.x, self.y))

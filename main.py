@@ -23,6 +23,8 @@ pygame.display.set_caption("PokeCatcher")
 clock = pygame.time.Clock()
 bg = pygame.image.load('bg.png')
 image = pygame.image.load('main_character/D1.png')
+logo = pygame.image.load('logo.png')
+logo = pygame.transform.scale(logo, (300,150))
 
 def getPokemon():
 
@@ -38,7 +40,7 @@ def getPokemon():
 
 def updateTimer():
 
-    text = font.render("Time: " + str(seconds//50 * -1), 1, (255,255,255))
+    text = font.render("Time: " + str(seconds//50 * 1), 1, (255,255,255))
     win.blit(text, (350,00))
 
 def redrawGameWindow():
@@ -59,7 +61,8 @@ while(run == False):
             if(event.type == pygame.QUIT):
                 run = False
     win.blit(bg , (0 ,0))
-    win.blit(image, (220, 200))
+    win.blit(image, (220, 300))
+    win.blit(logo, (100, 100))
     keys = pygame.key.get_pressed()
     pygame.display.update()
     if keys[pygame.K_RETURN]:
@@ -72,7 +75,7 @@ poke = getPokemon()
 poke2 = getPokemon()
 poke3 = getPokemon()
 pygame.display.update()
-while (run ):
+while (run and (seconds//50*1 != 59)):
     clock.tick(27)
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):
@@ -86,6 +89,7 @@ while (run ):
             pokemon_on_screen -= 1
             poke.update()
 
+
     if((poke2.x -32 < red.x and red.x < poke2.x + 32) or (poke2.x + 32 < red.x and red.x < poke2.x-32)):
         if((poke2.y -32 < red.y and red.y < poke2.y + 32) or (poke2.y + 32 < red.y and red.y < poke2.y-32)):
             score += 10
@@ -93,12 +97,14 @@ while (run ):
             pokemon_on_screen -= 1
             poke2.update()
 
+
     if((poke3.x -32 < red.x and red.x < poke3.x + 32) or (poke3.x + 32 < red.x and red.x < poke3.x-32)):
         if((poke3.y -32 < red.y and red.y < poke3.y + 32) or (poke3.y + 32 < red.y and red.y < poke3.y-32)):
             score += 10
             pokemon_caught += 1
             pokemon_on_screen -= 1
             poke3.update()
+    
 
 
     keys = pygame.key.get_pressed()
@@ -134,7 +140,7 @@ while (run ):
         red.standing = True
 
     redrawGameWindow()
-    seconds = seconds - 1
+    seconds += 1
     pokemon_on_screen += 1
 
 print("Congratulations!")

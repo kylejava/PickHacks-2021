@@ -1,6 +1,5 @@
 import pygame
 import random
-import threading
 import time
 from pokemon import *
 from player import *

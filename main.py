@@ -25,9 +25,12 @@ bg = pygame.image.load('bg.png')
 image = pygame.image.load('main_character/D1.png')
 logo = pygame.image.load('logo.png')
 logo = pygame.transform.scale(logo, (300,150))
+screen = pygame.image.load('screen.png')
+screen = pygame.transform.scale(screen, (500,500))
+
+
 
 def getPokemon():
-
     if(pokemon_on_screen < 3 and len(pokemon_list) > 0):
     #    pokemon_on_screen = pokemon_on_screen + 1
         pokemon_num = random.randint(0, len(pokemon_list)-1)
@@ -39,9 +42,10 @@ def getPokemon():
         return new_poke
 
 def updateTimer():
-
     text = font.render("Time: " + str(seconds//50 * 1), 1, (255,255,255))
     win.blit(text, (350,00))
+
+
 
 def redrawGameWindow():
     global walkCount
@@ -55,12 +59,11 @@ def redrawGameWindow():
     poke3.draw(win)
     pygame.display.update()
 
-
 while(run == False):
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):
                 run = False
-    win.blit(bg , (0 ,0))
+    win.blit(screen , ( 0,0))
     win.blit(image, (220, 300))
     win.blit(logo, (100, 100))
     keys = pygame.key.get_pressed()
@@ -104,7 +107,7 @@ while (run and (seconds//50*1 != 59)):
             pokemon_caught += 1
             pokemon_on_screen -= 1
             poke3.update()
-    
+
 
 
     keys = pygame.key.get_pressed()
@@ -142,6 +145,21 @@ while (run and (seconds//50*1 != 59)):
     redrawGameWindow()
     seconds += 1
     pokemon_on_screen += 1
+
+endScreen = True
+while endScreen:
+    for event in pygame.event.get():
+            if(event.type == pygame.QUIT):
+                endScreen = False
+    win.blit(screen , (0 ,0))
+    text = font.render("Final Score: " + str(score), 1, (0,0,0))
+    win.blit(text, (125, 200))
+    caught = font.render("Total Pokemon Caught: " + str(pokemon_caught), 1, (0,0,0))
+    win.blit(caught, (125, 250))
+    pygame.display.update()
+
+
+
 
 print("Congratulations!")
 print("Score: " + str(score))

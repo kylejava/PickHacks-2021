@@ -78,7 +78,7 @@ poke = getPokemon()
 poke2 = getPokemon()
 poke3 = getPokemon()
 pygame.display.update()
-while (run and (seconds//50*1 != 59)):
+while (run and (seconds//50*1 != 30)):
     clock.tick(27)
     for event in pygame.event.get():
             if(event.type == pygame.QUIT):
